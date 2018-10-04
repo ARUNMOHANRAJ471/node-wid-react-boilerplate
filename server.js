@@ -39,6 +39,9 @@ app.get('/api/hello', (req, res) => {
     });
 });
 
+app.use('/api/analyser', require(path.join(__dirname, './server/analyser'))); //When it is /api then it will go to getData
+
+
 if (process.env.NODE_ENV === 'production') {
     console.log("-------------------------------------");
     // Serve any static files
@@ -51,27 +54,27 @@ if (process.env.NODE_ENV === 'production') {
 
 // setup mongoose connection
 
-let mongoURL = 'mongodb://127.0.0.1:27017/rig_db_dsc';
+// let mongoURL = 'mongodb://127.0.0.1:27017/rig_db_dsc';
 
-mongoose.connect(mongoURL, {
-    useNewUrlParser: true
-});
+// mongoose.connect(mongoURL, {
+//     useNewUrlParser: true
+// });
 
-mongoose.connection.on('connected', function() {
-    console.log('mongoose is now connected to ', mongoURL);
+// mongoose.connection.on('connected', function() {
+//     console.log('mongoose is now connected to ', mongoURL);
 
-    mongoose.connection.on('error', function(err) {
-        console.error('error in mongoose connection: ', err);
-    });
+//     mongoose.connection.on('error', function(err) {
+//         console.error('error in mongoose connection: ', err);
+//     });
 
-    mongoose.connection.on('disconnected', function() {
-        console.log('mongoose is now disconnected.');
-    });
+//     mongoose.connection.on('disconnected', function() {
+//         console.log('mongoose is now disconnected.');
+//     });
 
-    process.on('SIGINT', function() {
-        mongoose.connection.close(function() {
-            console.log('mongoose disconnected on process termination');
-            process.exit(0);
-        });
-    });
-});
+//     process.on('SIGINT', function() {
+//         mongoose.connection.close(function() {
+//             console.log('mongoose disconnected on process termination');
+//             process.exit(0);
+//         });
+//     });
+// });
